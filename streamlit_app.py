@@ -1,6 +1,5 @@
 # Import python packages
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col,when_matched
 # Write directly to the app
 st.title(f"Example Streamlit App :cup_with_straw: {st.__version__}")
@@ -19,8 +18,8 @@ import streamlit as st
 
 name_on_order = st.text_input("name of smoothie")
 st.write("Name of your smoothie will be", name_on_order)
-
-session = get_active_session()
+cnx=st.connection("snowflake")
+session=cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
 ingredents_list=st.multiselect('choose upto 5 ingredents:',my_dataframe)
