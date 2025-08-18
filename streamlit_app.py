@@ -15,7 +15,6 @@ st.write(
 st.title(":cup_with_straw: Customize Your Smoothie!:cup_with_straw:")
 st.write("""Choose the smoothie you want in your custom smoothie!""")
 
-import streamlit as st
 
 name_on_order = st.text_input("name of smoothie")
 st.write("Name of your smoothie will be", name_on_order)
@@ -32,10 +31,6 @@ if ingredents_list:
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/"+fruit_choose)
         sf_df=st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
         
-        
-        
-
-    # st.write(ingredents_string)
     my_insert_smt = """insert into smoothies.public.orders(ingredients,name_on_order) values('""" + ingredents_string + """','"""+name_on_order+"""')"""
     st.write(my_insert_smt)
     time_to_insert=st.button("Submit Order")
