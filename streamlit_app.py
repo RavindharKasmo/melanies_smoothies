@@ -20,8 +20,10 @@ name_on_order = st.text_input("name of smoothie")
 st.write("Name of your smoothie will be", name_on_order)
 cnx=st.connection("snowflake")
 session=cnx.session()
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
-#st.dataframe(data=my_dataframe, use_container_width=True)
+my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('search_on'))
+st.dataframe(data=my_dataframe, use_container_width=True)
+st.stop()
+
 ingredents_list=st.multiselect('choose upto 5 ingredents:',my_dataframe)
 if ingredents_list:
     ingredents_string = ''
